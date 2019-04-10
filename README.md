@@ -1,3 +1,5 @@
+# Intro To React
+A simple Todo Application used and presented at FDC meetup
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
