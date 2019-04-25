@@ -15,6 +15,10 @@ export default class AddTodo extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
+    if (this.state.title.trim() === ""){
+      return
+    }
+    else {
     const todo = {
       id: uuid.v4(),
       title: this.state.title,
@@ -23,6 +27,7 @@ export default class AddTodo extends Component {
     this.props.addTodo(todo);
     this.setState({title: ""});
   }
+}
 
 
   render(){

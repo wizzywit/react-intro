@@ -3,6 +3,8 @@ import Header from './components/Header';
 import Todos from './components/Todos';
 import AddTodo from './components/AddTodo';
 import './App.css';
+import TodoCompleted from './components/TodoCompleted'
+import TodoNotCompleted from './components/TodoNotCompleted'
 
 class App extends Component {
   state = {
@@ -22,7 +24,10 @@ class App extends Component {
 //        title: "Todos 3",
 //        completed: false
 //      }
-      ]
+      ],
+
+      loadCompleted: false,
+      loadNotCompleted: false
   }
 
   markCompleted = id => {
@@ -49,17 +54,65 @@ class App extends Component {
     })
   }
 
+  handleComplete = () => {
+    this.setState ({
+      loadCompleted: true,
+      loadNotCompleted: false
+    })
+  }
+
+  handleTodos = () => {
+    this.setState ({
+      loadCompleted: false,
+      loadNotCompleted: false
+    })
+  }
+
+  handleNoComplete = () => {
+    this.setState ({
+      loadCompleted: false,
+      loadNotCompleted: true 
+    })
+  }
+
 
   render() {
+    const loadCompleted = this.state.loadCompleted;
+    const loadNotCompleted = this.state.loadNotCompleted;
+    let todos;
+
+    if (!loadCompleted && !loadNotCompleted) {
+      todos = <Todos 
+      todos={this.state.todos} 
+      markCompleted={this.markCompleted} 
+      deleteTodo={this.deleteTodo}
+    />
+    }
+    if (loadNotCompleted) {
+      todos = <TodoNotCompleted
+      todos={this.state.todos} 
+      markCompleted={this.markCompleted} 
+      deleteTodo={this.deleteTodo} />
+      
+    }
+
+    if(loadCompleted) {
+      todos = <TodoCompleted
+      todos={this.state.todos} 
+      markCompleted={this.markCompleted} 
+      deleteTodo={this.deleteTodo} />
+      
+    }
     return (
       <div className="App">
         <Header />
         <AddTodo addTodo={this.addTodo} />
-        <Todos 
-          todos={this.state.todos} 
-          markCompleted={this.markCompleted} 
-          deleteTodo={this.deleteTodo}
-        />
+        {todos}
+        <div className='comp'>
+          <button onClick={this.handleComplete} className='btn co'>Completed Todos</button>
+          <button onClick={this.handleTodos} className='btn co'>All Todos</button>
+          <button onClick={this.handleNoComplete} className='btn co'>Not Completed</button>
+        </div>
       </div>
     );
   }

@@ -71,12 +71,21 @@
 .del {
   background: #ff0000;
   color: #fff;
-  float: right
+  float: right;
 }
 
 form {
   display: flex;
   padding: 7px;
+}
+
+.comp {
+  margin: 7px;
+  display: flex;
+}
+
+.co {
+  margin-right: 7px;
 }
 
 input[type="text"] {
